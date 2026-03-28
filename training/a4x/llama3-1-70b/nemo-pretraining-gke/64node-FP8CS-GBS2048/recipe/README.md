@@ -67,11 +67,11 @@ Set the default project:
 
 Clone the `gpu-recipes` repository and set a reference to the recipe folder.
 
-```
+``` 
 git clone https://github.com/ai-hypercomputer/gpu-recipes.git
 cd gpu-recipes
 export REPO_ROOT=`git rev-parse --show-toplevel`
-export RECIPE_ROOT=$REPO_ROOT/training/a4x/llama3-1-70b/nemo-pretraining-gke/64_nodes
+export RECIPE_ROOT=$REPO_ROOT/training/a4x/llama3-1-70b/nemo-pretraining-gke/64node-FP8CS-GBS2048/recipe
 cd $RECIPE_ROOT
 ```
 
@@ -87,18 +87,18 @@ gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
 To execute the job with the default settings, run the following command from
 your client:
 
-    ```bash
-    cd $RECIPE_ROOT
-    export WORKLOAD_NAME=$USER-a4x-llama3-1-70b-64node
-    helm install $WORKLOAD_NAME . -f values.yaml \
-    --set-file workload_launcher=launcher.sh \
-    --set-file workload_config=llama3-1-70b-fp8cs-gbs2048-gpus256.py \
-    --set workload.image=nvcr.io/nvidia/nemo:25.07 \
-    --set volumes.gcsMounts[0].bucketName=${GCS_BUCKET} \
-    --set volumes.gcsMounts[0].mountPath=/job-logs \
-    --set workload.envs[0].value=/job-logs/$WORKLOAD_NAME \
-    --set queue=${KUEUE_NAME}
-    ```
+```bash
+cd $RECIPE_ROOT
+export WORKLOAD_NAME=$USER-a4x-llama3-1-70b-64node
+helm install $WORKLOAD_NAME . -f values.yaml \
+--set-file workload_launcher=launcher.sh \
+--set-file workload_config=llama3-1-70b-fp8cs-gbs2048-gpus256.py \
+--set workload.image=nvcr.io/nvidia/nemo:25.07 \
+--set volumes.gcsMounts[0].bucketName=${GCS_BUCKET} \
+--set volumes.gcsMounts[0].mountPath=/job-logs \
+--set workload.envs[0].value=/job-logs/$WORKLOAD_NAME \
+--set queue=${KUEUE_NAME}
+```
 
 **Examples**
 

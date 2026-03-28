@@ -1,5 +1,5 @@
 <!-- mdformat global-off -->
-# Pretrain llama3-1-70b-seq8192-gbs2048-mbs1-gpus256 workloads on a4 GKE Node pools with Nvidia NeMo Framework
+# Pretrain llama3-1-70b-seq8192-gbs2048-mbs1-gpus256 workloads on a4 GKE Node pools with Nvidia NeMo Framework (Intelligence)
 
 This recipe outlines the steps for running a llama3-1-70b-seq8192-gbs2048-mbs1-gpus256 pretraining
 workload on [a4 GKE Node pools](https://cloud.google.com/kubernetes-engine) by using the
@@ -87,7 +87,6 @@ gcloud container clusters get-credentials $CLUSTER_NAME --region $CLUSTER_REGION
 To execute the job with the default settings, run the following command from
 your client:
 
-    ```bash
     cd $RECIPE_ROOT
     export WORKLOAD_NAME=$USER-a4-llama3-1-70b
     helm install $WORKLOAD_NAME . -f values.yaml \
@@ -98,7 +97,6 @@ your client:
     --set volumes.gcsMounts[0].mountPath=/job-logs \
     --set workload.envs[0].value=/job-logs/$WORKLOAD_NAME \
     --set queue=${KUEUE_NAME}
-    ```
 
 **Examples**
 
